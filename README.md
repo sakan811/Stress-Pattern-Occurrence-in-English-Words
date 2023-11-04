@@ -10,7 +10,7 @@ The English words dataset was based on “SubtlexUS” dataset.
 
 # Result
 Check out the link below to see the result.
-https://sakan811.github.io/
+https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
 
 # Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
