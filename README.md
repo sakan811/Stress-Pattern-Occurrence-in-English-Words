@@ -9,7 +9,7 @@ The stress pattern was based on The CMU Pronouncing Dictionary.
 The English words dataset was based on “SubtlexUS” dataset.  
 
 # Result
-Check out the link below to see the result.
+Check out the link below to see the result.  
 https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
 
 # Sources
