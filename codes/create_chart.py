@@ -56,36 +56,6 @@ def create_bar_chart_quantity(grouped_data, title, height, width):
     save_chart(chart)
 
 
-def create_bar_chart_percent(grouped_data, title, height, width):
-
-    base_chart = create_base_bar_chart(grouped_data, title, height, width)
-
-    # To display the count as percentage
-    total = grouped_data['count'].sum()
-    grouped_data['percentage'] = ((grouped_data['count'] / total) * 100).round(2)
-
-    # Bar layer
-    bars = base_chart.mark_bar(size=50).encode(
-        y=alt.Y('percentage:Q', title='Percentage')
-    )
-
-    # Text layer
-    text = base_chart.mark_text(align='center', baseline='bottom', dy=-2, fontSize=20).encode(
-        y=alt.Y('percentage:Q', title='Percentage'),
-        text='percentage:Q'
-    )
-
-    # Combined chart with configuration
-    chart = (bars + text).configure_axis(
-        labelFontSize=20,
-        titleFontSize=20
-    ).configure_title(
-        fontSize=25
-    )
-
-    save_chart(chart)
-
-
 def count_pattern(data_path, column_name, length):
     # Load the data from the TSV file
     dataframe = load_data(data_path)
@@ -104,29 +74,6 @@ def filter_data(grouped_data, data_num):
     top_5_groups = grouped_data.sort_values(by='count', ascending=False).head(data_num)
 
     return top_5_groups
-
-
-def group_pattern_percent(data_path, replacement_dict, column_name, length):
-    # Load the data from the TSV file
-    dataframe = load_data(data_path)
-
-    # Pad values in a specified column with zeros.
-    dataframe = pad_with_zeros(dataframe, column_name, length)
-
-    # Define a function to group stress patterns
-    def group_stress_pattern(pattern):
-        if '1' in pattern:
-            return ''.join(['1' if c == '1' else '0' for c in pattern])
-        else:
-            return pattern
-
-    # Now apply the replacement
-    dataframe['stress_pattern'] = dataframe['stress_pattern'].apply(group_stress_pattern)
-
-    # Group by the updated 'stress_pattern' column and count the occurrences
-    grouped_data = dataframe.groupby('stress_pattern').size().reset_index(name='count')
-
-    return grouped_data
 
 
 def pad_with_zeros(dataframe, column_name, length):

@@ -14,7 +14,7 @@ The English words dataset was based on the “SubtlexUS” dataset.
 Check out the link below to see the full result and more details on the project.  
 https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
 
-# Process
+# Codes
 - Divided the English words in the "SubtlexUS" into categories from 2 to 6-syllable words as tsv files.
 - Converted each tsv into csv file.
 - Extracted the stress pattern of each word in the given category using 'cmudict'.

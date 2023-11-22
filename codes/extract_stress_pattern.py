@@ -8,7 +8,6 @@ pron_dict = cmudict.dict()
 
 
 def load_data(data_path):
-    # Added a return statement to return the loaded data
     return pd.read_csv(data_path, delimiter='\t')
 
 
@@ -32,11 +31,11 @@ def count_syllable(data):
     grouped = data.groupby('syllable_count')
 
     for name, group in grouped:
-        group.to_csv(f'{name}_syllables.tsv', sep='\t', index=False)
+        output_path = f'../dataset/Syllables/{name}_syllables.tsv'
+        save_data(group, output_path)
 
 
 def get_stress_pattern(word):
-    # Removed the download statement and moved it outside the function
     try:
         phonemes = pron_dict[word.lower()][0]  # Assumes word is in dictionary and takes first pronunciation
         stress_pattern = [char for phoneme in phonemes for char in phoneme if char.isdigit()]
@@ -50,10 +49,16 @@ def get_stress_patterns(data):
 
 
 def main():
-    data_path = '6.0_syllables.tsv'
-    dataframe = load_data(data_path)  # Store the returned data in a variable
-    get_stress_patterns(dataframe)  # Call the new function to get stress patterns
-    dataframe.to_csv('6_with_stress_patterns.tsv', sep='\t', index=False)  # Save the data with the new column to a file
+    dataset = load_data('../dataset/SUBTLEXus74286wordstextversion.tsv')
+    count_syllable(dataset)
+
+    for i in range(1, 7):
+        data_path = f'../dataset/Syllables/{i}.0_syllables.tsv'
+        dataframe = load_data(data_path)
+        get_stress_patterns(dataframe)
+        output_path = (f'../dataset/Syllables with Stress '
+                       f'Pattern/{i}_with_stress_patterns.tsv')
+        save_data(dataframe, output_path)
 
 
 if __name__ == '__main__':
