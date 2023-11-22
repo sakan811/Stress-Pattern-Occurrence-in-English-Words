@@ -1,7 +1,7 @@
 import altair as alt
 import pandas as pd
 import webbrowser
-from altair_saver import save
+import altair_saver
 
 
 def load_data(data_path):
@@ -11,7 +11,7 @@ def load_data(data_path):
 
 def save_chart(chart):
     # Save the chart as an HTML file
-    save(chart, 'chart.html')
+    altair_saver.save(chart, 'chart.html')
 
     # Open the HTML file in the default web browser
     webbrowser.open('chart.html')
@@ -87,23 +87,21 @@ def pad_with_zeros(dataframe, column_name, length):
 
 
 def main():
-    data = '6_with_stress_patterns.tsv'
+    data = '../dataset/Syllables with Stress Pattern/2_with_stress_patterns.tsv'
 
     column_name = 'stress_pattern'
-    length = 6  # set to the number of syllable to pad zeros correctly.
+    length = 2  # set to the number of syllable to pad zeros correctly.
     data = count_pattern(data, column_name, length)
 
     # Uncomment this code in case to create a chart with only specific number of data.
     # data = filter_data(data, data_num=5)
 
-    title = 'Stress Pattern in 6-Syllable English Words'
+    title = f'Stress Pattern in {length}-Syllable English Words'
 
     height = 450
     width = 800
 
     create_bar_chart_quantity(data, title, height, width)
-
-    # create_bar_chart_percent(data, title, height, width)
 
 
 if __name__ == '__main__':
