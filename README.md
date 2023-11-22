@@ -19,7 +19,7 @@ https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
 - Converted each tsv into csv file.
 - Extracted the stress pattern of each word in the given category using 'cmudict'.
 - Save the stress pattern of each word as a new column of the same file.
-- Visualized all of the stress patterns of each syllable category using Altair.
+- Visualized all the stress patterns of each syllable category using Altair.
 
 # Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
