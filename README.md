@@ -14,6 +14,9 @@ The English words dataset was based on the “SubtlexUS” dataset.
 Check out the link below to see the full result and more details on the project.  
 https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
 
+#Codes
+
+
 # Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
 “SubtlexUS” dataset: http://www.lexique.org/?page_id=241  
