@@ -14,8 +14,12 @@ The English words dataset was based on the “SubtlexUS” dataset.
 Check out the link below to see the full result and more details on the project.  
 https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
 
-#Codes
-
+# Process
+- Divided the English words in the "SubtlexUS" into categories from 2 to 6-syllable words as tsv files.
+- Converted each tsv into csv file.
+- Extracted the stress pattern of each word in the given category using 'cmudict'.
+- Save the stress pattern of each word as a new column of the same file.
+- Visualized all of the stress patterns of each syllable category using Altair.
 
 # Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
