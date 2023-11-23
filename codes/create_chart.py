@@ -1,7 +1,5 @@
 import altair as alt
 import pandas as pd
-import webbrowser
-import altair_saver
 
 
 def load_data(data_path):
@@ -9,12 +7,9 @@ def load_data(data_path):
     return pd.read_csv(data_path, delimiter='\t')
 
 
-def save_chart(chart):
-    # Save the chart as an HTML file
-    altair_saver.save(chart, 'chart.html')
-
-    # Open the HTML file in the default web browser
-    webbrowser.open('chart.html')
+def save_chart(chart, output_path):
+    # Save the chart as an SVG file
+    alt.Chart.save(chart, output_path)
 
 
 def create_base_bar_chart(grouped_data, title, height, width):
@@ -30,7 +25,7 @@ def create_base_bar_chart(grouped_data, title, height, width):
     return base_chart
 
 
-def create_bar_chart_quantity(grouped_data, title, height, width):
+def create_bar_chart_quantity(grouped_data, title, height, width, output_path):
 
     base_chart = create_base_bar_chart(grouped_data, title, height, width)
 
@@ -53,7 +48,7 @@ def create_bar_chart_quantity(grouped_data, title, height, width):
         fontSize=25
     )
 
-    save_chart(chart)
+    save_chart(chart, output_path)
 
 
 def count_pattern(data_path, column_name, length):
@@ -87,21 +82,29 @@ def pad_with_zeros(dataframe, column_name, length):
 
 
 def main():
-    data = '../dataset/Syllables with Stress Pattern/2_with_stress_patterns.tsv'
+    for i in range(2, 7):
+        data = f'../dataset/Syllables with Stress Pattern/{i}_with_stress_patterns.tsv'
 
-    column_name = 'stress_pattern'
-    length = 2  # set to the number of syllable to pad zeros correctly.
-    data = count_pattern(data, column_name, length)
+        column_name = 'stress_pattern'
 
-    # Uncomment this code in case to create a chart with only specific number of data.
-    # data = filter_data(data, data_num=5)
+        length = i  # set to the number of syllable to pad zeros correctly.
+        data = count_pattern(data, column_name, length)
 
-    title = f'Stress Pattern in {length}-Syllable English Words'
+        # Specified number of data in the chart
+        data_filtered = filter_data(data, data_num=5)
 
-    height = 450
-    width = 800
+        title = f'Stress Pattern in {length}-Syllable English Words'
 
-    create_bar_chart_quantity(data, title, height, width)
+        height = 1800
+        width = 3200
+
+        output_path_q = f'../graph_svg/{length}-syllable_graph_quantity.svg'
+        output_path_t5 = f'../graph_svg/{length}-syllable_graph_top_5.svg'
+
+        create_bar_chart_quantity(data, title, height, width, output_path_q)
+
+        # To create a chart with only number of data specified
+        create_bar_chart_quantity(data_filtered, title, height, width, output_path_t5)
 
 
 if __name__ == '__main__':

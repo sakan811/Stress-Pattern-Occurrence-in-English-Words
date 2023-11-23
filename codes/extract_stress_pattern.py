@@ -52,7 +52,7 @@ def main():
     dataset = load_data('../dataset/SUBTLEXus74286wordstextversion.tsv')
     count_syllable(dataset)
 
-    for i in range(1, 7):
+    for i in range(2, 7):
         data_path = f'../dataset/Syllables/{i}.0_syllables.tsv'
         dataframe = load_data(data_path)
         get_stress_patterns(dataframe)
