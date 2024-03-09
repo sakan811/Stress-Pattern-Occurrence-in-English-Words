@@ -51,11 +51,25 @@ def get_stress_patterns(data: DataFrame) -> None:
     data['stress_pattern'] = data['Word'].apply(get_stress_pattern)
 
 
+def get_primary_stress_position(stress_pattern: int, length: int) -> int:
+    stress_pattern_str: str = str(stress_pattern).zfill(length)
+    for i, char in enumerate(stress_pattern_str):
+        if char == '1':
+            return i + 1
+
+
+def get_secondary_stress_position(stress_pattern: int, length: int) -> int:
+    stress_pattern_str: str = str(stress_pattern).zfill(length)
+    for i, char in enumerate(stress_pattern_str):
+        if char == '2':
+            return i + 1
+
+
 def main() -> None:
     data_path = 'SUBTLEXus74286wordstextversion.tsv'
     dataset = load_data(data_path)
     count_syllable(dataset)
-    syllable_count = [1, 2, 3, 4, 5, 6, 7 , 8, 9, 12]
+    syllable_count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12]
 
     for i in syllable_count:
         data_path = f'dataset/{i}.0.tsv'
@@ -63,6 +77,8 @@ def main() -> None:
         get_stress_patterns(dataframe)
         output_path = f'dataset/with_stress_pattern/{i}_with_stress_patterns.tsv'
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        dataframe['primary_stress_position'] = dataframe['stress_pattern'].apply(get_primary_stress_position, length=i)
+        dataframe['secondary_stress_position'] = dataframe['stress_pattern'].apply(get_secondary_stress_position, length=i)
         save_data(dataframe, output_path)
 
 
