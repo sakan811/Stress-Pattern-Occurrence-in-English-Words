@@ -1,4 +1,4 @@
-# Stress-Pattern-Occurrence-in-English-Words
+# Stress Pattern Occurrence in English Words
 
 The stress pattern was based on **The CMU Pronouncing Dictionary**.   
 
@@ -8,11 +8,12 @@ The English words dataset was based on the **SubtlexUS** dataset.
 
 According to the result from **cmudict** module, 
 the same type of **Stress Pattern** sometimes occurs many times in a word. 
-Only first of the given type is considered.
+Only the first of the given type is considered.
 
-# Result and Further Details
-Check out the link below to see the full result and more details on the project.  
-https://sakan811.github.io/Stress-Pattern-Occurrence-in-English-Words/
+# Visualizations
+Check out [Instagram Post](https://www.instagram.com/p/C4TVCbuu31d/) and
+[Facebook Post](https://www.facebook.com/permalink.php?story_fbid=pfbid034JSCYjYkMJp1meHhDFG8qhw4NxzSqxxjqj6TNYt2CdmBquZtJceky64s7HrzoSb4l&id=61553626169836):     
+
 
 # Codes
 ```extract_stress_pattern.py```
