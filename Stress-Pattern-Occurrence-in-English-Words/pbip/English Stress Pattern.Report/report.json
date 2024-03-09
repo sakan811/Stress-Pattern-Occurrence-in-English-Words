@@ -1,0 +1,84 @@
+{
+  "config": "{\"version\":\"5.51\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU02\",\"version\":\"5.51\",\"type\":2}},\"activeSectionIndex\":2,\"defaultDrillFilterOtherVisuals\":true,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":false},\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU02",
+            "path": "BaseThemes/CY24SU02.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection59095488e6023c7e3821",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"6d1fc4b28de1f575381f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":0,\"z\":0,\"width\":1248,\"height\":720,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"scriptVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"with_stress_pattern.syllable_count\"},{\"queryRef\":\"with_stress_pattern.primary_stress_position\"},{\"queryRef\":\"with_stress_pattern.secondary_stress_position\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"syllable_count\"},\"Name\":\"with_stress_pattern.syllable_count\",\"NativeReferenceName\":\"syllable_count\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"},\"Name\":\"with_stress_pattern.primary_stress_position\",\"NativeReferenceName\":\"primary_stress_position\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"secondary_stress_position\"},\"Name\":\"with_stress_pattern.secondary_stress_position\",\"NativeReferenceName\":\"secondary_stress_position\"}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"script\":[{\"properties\":{\"source\":{\"expr\":{\"Literal\":{\"Value\":\"'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \\n\\n# dataset <- data.frame(Word, syllable_count, stress_pattern)\\n# dataset <- unique(dataset)\\n\\n# Paste or type your script code here:\\nlibrary(GGally)\\n\\nggpairs(dataset, columns = 1:3, upper = list(continuous = wrap(\\\"cor\\\", size = 10))) +\\n  ggtitle(\\\"Relationship between syllable_count, stress_pattern, primary_stress_position, and secondary_stress_position\\\") +\\n  labs(subtitle = \\\"Based on SubtlexUS dataset\\\") + \\n  theme(\\n    plot.title = element_text(size = 20),\\n    strip.text = element_text(size = 15),\\n    axis.text = element_text(size = 15),\\n    plot.subtitle = element_text(size = 15)\\n    )'\"}}},\"provider\":{\"expr\":{\"Literal\":{\"Value\":\"'R'\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 720.00,
+          "width": 1248.00,
+          "x": 24.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 3",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection8730d8d60567b18936af",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"22e7aba006bae9ccf2f7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":1272,\"height\":720,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"scriptVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"with_stress_pattern.primary_stress_position\"},{\"queryRef\":\"with_stress_pattern.secondary_stress_position\"},{\"queryRef\":\"with_stress_pattern.Word\"},{\"queryRef\":\"with_stress_pattern.syllable_count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"},\"Name\":\"with_stress_pattern.primary_stress_position\",\"NativeReferenceName\":\"primary_stress_position\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"secondary_stress_position\"},\"Name\":\"with_stress_pattern.secondary_stress_position\",\"NativeReferenceName\":\"secondary_stress_position\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"Word\"},\"Name\":\"with_stress_pattern.Word\",\"NativeReferenceName\":\"Word\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"syllable_count\"},\"Name\":\"with_stress_pattern.syllable_count\",\"NativeReferenceName\":\"syllable_count\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"}},\"Function\":5}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"script\":[{\"properties\":{\"source\":{\"expr\":{\"Literal\":{\"Value\":\"'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \\n\\n# dataset <- data.frame(primary_stress_position, secondary_stress_position)\\n# dataset <- unique(dataset)\\n\\n# Paste or type your script code here:\\nlibrary(ggplot2)\\nlibrary(dplyr)\\n\\n# Convert ''primary_stress_position'' to a factor variable\\ndataset$secondary_stress_position <- factor(dataset$secondary_stress_position)\\n\\n# Count the occurrences of each level of ''primary_stress_position'' for each ''syllable_count''\\ncounted_data <- dataset %>%\\n  group_by(syllable_count, secondary_stress_position) %>%\\n  summarise(count_of_secondary_stress_position = n())\\n\\n# Create the ggplot\\nggplot(counted_data, aes(x = secondary_stress_position, y = count_of_secondary_stress_position, fill = secondary_stress_position)) +\\n  geom_bar(stat = \\\"identity\\\") +\\n  facet_grid(~ syllable_count, scales = \\\"free_x\\\") +\\n  ggtitle(\\\"Secondary Stress Position Count by Syllable Count\\\") +\\n  labs(subtitle = \\\"Based on SubtlexUS dataset\\\",\\n       x = \\\"Secondary Stress Position\\\",  # Change the x-axis label\\n       y = \\\"Count\\\") +                  # Change the y-axis label\\n  theme(\\n    plot.title = element_text(size = 20),\\n    strip.text = element_text(size = 15),\\n    axis.text = element_text(size = 15),\\n    plot.subtitle = element_text(size = 15),\\n    axis.title.x = element_text(size = 15),  # Adjust the size of the x-axis label\\n    axis.title.y = element_text(size = 15) \\n  ) \\n#   geom_text(aes(label = count_of_primary_stress_position), vjust = -1, colour = \\\"black\\\")'\"}}},\"provider\":{\"expr\":{\"Literal\":{\"Value\":\"'R'\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filter78b93fe4eb23b56e871d\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"with_stress_pattern\"}},\"Property\":\"secondary_stress_position\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"secondary_stress_position\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false},{\"name\":\"Filter005e60f51c9eb8cc9822\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"with_stress_pattern\"}},\"Property\":\"primary_stress_position\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 720.00,
+          "width": 1272.00,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 2",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSectione0f986f10c5a671dd703",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"4c7987df55d3bf2191b1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":1272,\"height\":720,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"scriptVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"with_stress_pattern.primary_stress_position\"},{\"queryRef\":\"with_stress_pattern.secondary_stress_position\"},{\"queryRef\":\"with_stress_pattern.Word\"},{\"queryRef\":\"with_stress_pattern.syllable_count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"},\"Name\":\"with_stress_pattern.primary_stress_position\",\"NativeReferenceName\":\"primary_stress_position\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"secondary_stress_position\"},\"Name\":\"with_stress_pattern.secondary_stress_position\",\"NativeReferenceName\":\"secondary_stress_position\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"Word\"},\"Name\":\"with_stress_pattern.Word\",\"NativeReferenceName\":\"Word\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"syllable_count\"},\"Name\":\"with_stress_pattern.syllable_count\",\"NativeReferenceName\":\"syllable_count\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"}},\"Function\":5}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"script\":[{\"properties\":{\"source\":{\"expr\":{\"Literal\":{\"Value\":\"'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \\n\\n# dataset <- data.frame(primary_stress_position, secondary_stress_position)\\n# dataset <- unique(dataset)\\n\\n# Paste or type your script code here:\\nlibrary(ggplot2)\\nlibrary(dplyr)\\n\\n# Convert ''primary_stress_position'' to a factor variable\\ndataset$primary_stress_position <- factor(dataset$primary_stress_position)\\n\\n# Count the occurrences of each level of ''primary_stress_position'' for each ''syllable_count''\\ncounted_data <- dataset %>%\\n  group_by(syllable_count, primary_stress_position) %>%\\n  summarise(count_of_primary_stress_position = n())\\n\\n# Create the ggplot\\nggplot(counted_data, aes(x = primary_stress_position, y = count_of_primary_stress_position, fill = primary_stress_position)) +\\n  geom_bar(stat = \\\"identity\\\") +\\n  facet_grid(~ syllable_count, scales = \\\"free_x\\\") +\\n  ggtitle(\\\"Primary Stress Position Count by Syllable Count\\\") +\\n  labs(subtitle = \\\"Based on SubtlexUS dataset\\\",\\n       x = \\\"Primary Stress Position\\\",  # Change the x-axis label\\n       y = \\\"Count\\\") +                  # Change the y-axis label\\n  theme(\\n    plot.title = element_text(size = 20),\\n    strip.text = element_text(size = 15),\\n    axis.text = element_text(size = 15),\\n    plot.subtitle = element_text(size = 15),\\n    axis.title.x = element_text(size = 15),  # Adjust the size of the x-axis label\\n    axis.title.y = element_text(size = 15) \\n  ) \\n#   geom_text(aes(label = count_of_primary_stress_position), vjust = -1, colour = \\\"black\\\")'\"}}},\"provider\":{\"expr\":{\"Literal\":{\"Value\":\"'R'\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filter78b93fe4eb23b56e871d\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"with_stress_pattern\"}},\"Property\":\"secondary_stress_position\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"secondary_stress_position\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false},{\"name\":\"Filter005e60f51c9eb8cc9822\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"with_stress_pattern\"}},\"Property\":\"primary_stress_position\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"w\",\"Entity\":\"with_stress_pattern\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"w\"}},\"Property\":\"primary_stress_position\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 720.00,
+          "width": 1272.00,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}
