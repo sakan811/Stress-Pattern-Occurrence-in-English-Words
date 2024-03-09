@@ -20,7 +20,9 @@ Check out [Instagram Post](https://www.instagram.com/p/C4TVCbuu31d/) and
 - Load **SubtlexUS** dataset
 - Group words by syllable count
 - Extract stress patterns
-- 
+- Find **Primary and Secondary Stress Position**
+  - Save to additional columns
+- Save to TSV
 
 # Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
