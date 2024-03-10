@@ -248,11 +248,11 @@
         ],
         "expression": [
           "let",
-          "    Source = (Parameter3) => let",
-          "        Source = Csv.Document(Parameter3,[Delimiter=\"\t\", Columns=13, Encoding=874, QuoteStyle=QuoteStyle.None]),",
-          "        #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
-          "    in",
-          "        #\"Promoted Headers\"",
+          "    Source = (Parameter3 as binary) => let",
+          "    Source = Csv.Document(Parameter3,[Delimiter=\"\t\", Columns=13, Encoding=874, QuoteStyle=QuoteStyle.None]),",
+          "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+          "in",
+          "    #\"Promoted Headers\"",
           "in",
           "    Source"
         ],
@@ -326,10 +326,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
