@@ -162,3 +162,5 @@ cython_debug/
 /css/
 /r_dir/
 /pbip/
+/eng_stress_pattern.db
+/dataset/

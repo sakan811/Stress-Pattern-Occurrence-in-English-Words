@@ -4,8 +4,16 @@ import nltk
 from nltk.corpus import cmudict
 from pandas import DataFrame
 from pandas.core.groupby import DataFrameGroupBy
+from loguru import logger
+from load_to_sqlite import LoadToSqlite
 
-# Downloading the cmudict data outside the function, so it's only done once
+logger.add(
+    'extract_stress_pattern.log',
+    format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name} | {module} | {function} | {line} | {message}",
+    mode='w'
+)
+
+logger.info('Download the cmudict data.')
 nltk.download('cmudict')
 pron_dict = cmudict.dict()
 
@@ -33,6 +41,8 @@ def count_syllable(data: DataFrame) -> None:
     data['syllable_count']: DataFrame = data['Word'].apply(count_syllables)
     grouped: DataFrameGroupBy = data.groupby('syllable_count')
 
+    LoadToSqlite().insert_to_sqlite(data, 'SyllableGroup')
+
     for name, group in grouped:
         output_path = f'dataset/{name}.tsv'
         save_data(group, output_path)
@@ -51,16 +61,14 @@ def get_stress_patterns(data: DataFrame) -> None:
     data['stress_pattern'] = data['Word'].apply(get_stress_pattern)
 
 
-def get_primary_stress_position(stress_pattern: int, length: int) -> int:
-    stress_pattern_str: str = str(stress_pattern).zfill(length)
-    for i, char in enumerate(stress_pattern_str):
+def get_primary_stress_position(stress_pattern: str) -> int:
+    for i, char in enumerate(stress_pattern):
         if char == '1':
             return i + 1
 
 
-def get_secondary_stress_position(stress_pattern: int, length: int) -> int:
-    stress_pattern_str: str = str(stress_pattern).zfill(length)
-    for i, char in enumerate(stress_pattern_str):
+def get_secondary_stress_position(stress_pattern: str) -> int:
+    for i, char in enumerate(stress_pattern):
         if char == '2':
             return i + 1
 
@@ -69,17 +77,23 @@ def main() -> None:
     data_path = 'SUBTLEXus74286wordstextversion.tsv'
     dataset = load_data(data_path)
     count_syllable(dataset)
-    syllable_count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12]
 
-    for i in syllable_count:
-        data_path = f'dataset/{i}.0.tsv'
-        dataframe: DataFrame = load_data(data_path)
-        get_stress_patterns(dataframe)
-        output_path = f'dataset/with_stress_pattern/{i}_with_stress_patterns.tsv'
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        dataframe['primary_stress_position'] = dataframe['stress_pattern'].apply(get_primary_stress_position, length=i)
-        dataframe['secondary_stress_position'] = dataframe['stress_pattern'].apply(get_secondary_stress_position, length=i)
-        save_data(dataframe, output_path)
+    engine = LoadToSqlite().sqlalchemy_engine
+    query = "select * from main.SyllableGroup"
+    df = pd.read_sql_query(query, engine)
+
+    logger.info('Drop rows where \'syllable_count\' is null')
+    df = df.dropna(subset=['syllable_count'])
+
+    logger.info('Reset index after dropping rows')
+    df.reset_index(drop=True, inplace=True)
+
+    get_stress_patterns(df)
+
+    df['primary_stress_position'] = df['stress_pattern'].apply(get_primary_stress_position)
+    df['secondary_stress_position'] = df['stress_pattern'].apply(get_secondary_stress_position)
+
+    LoadToSqlite().insert_to_sqlite(df, 'StressPattern')
 
 
 if __name__ == '__main__':
