@@ -6,7 +6,7 @@ from stress_pattern_etl import pron_dict
 from stress_pattern_etl.load_to_sqlite import LoadToSqlite
 
 
-class TransformSyllableData:
+class TransformWordData:
     def __init__(self):
         pass
 
@@ -83,10 +83,10 @@ class TransformSyllableData:
             if char == '2':
                 return i + 1
 
-    def transform_syllable_data(self) -> pd.DataFrame:
+    def transform_word_data(self) -> pd.DataFrame:
         """
-        Transform the syllable data.
-        :return: pandas DataFrame
+        Transform the English word data to find a syllable count and stress pattern.
+        :return: Pandas DataFrame
         """
         engine = LoadToSqlite().sqlalchemy_engine
         query = "select * from main.SyllableGroup"
