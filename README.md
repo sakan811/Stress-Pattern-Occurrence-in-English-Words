@@ -13,8 +13,8 @@ the same type of **Stress Pattern** sometimes occurs many times in a word.
 Only the first of the given type is considered.
 
 # Visualizations
-Check out [Instagram Post](https://www.instagram.com/p/C4Ycgo2PHJA/?utm_source=ig_web_copy_link) and
-[Facebook Post](https://www.facebook.com/permalink.php?story_fbid=pfbid0nTKpe1Wx9BVbQJ8KZpQQfRCwp4zQn5TLDasiyiq9ec8u9fwBbJutnVa4FtXpsSfTl&id=61553626169836):     
+[Instagram](https://www.instagram.com/p/C4Ycgo2PHJA/?utm_source=ig_web_copy_link)  
+[Facebook](https://www.facebook.com/permalink.php?story_fbid=pfbid0nTKpe1Wx9BVbQJ8KZpQQfRCwp4zQn5TLDasiyiq9ec8u9fwBbJutnVa4FtXpsSfTl&id=61553626169836)    
 
 
 # Codes
