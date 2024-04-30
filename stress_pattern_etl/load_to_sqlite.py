@@ -1,14 +1,9 @@
+import os
 import sqlalchemy
 from loguru import logger
 from sqlalchemy import create_engine
 import pandas as pd
 import sqlite3
-
-logger.add(
-    'sqlite_pipeline.log',
-    format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name} | {module} | {function} | {line} | {message}",
-    mode='w'
-)
 
 
 class LoadToSqlite:
@@ -16,9 +11,14 @@ class LoadToSqlite:
         """
         Initialize the SQLite database if not exist.
         """
-        logger.info("Initializing SQLite database if not exist...")
+        logger.info("Initializing SQLite database...")
         self.database = 'eng_stress_pattern.db'
         self.sqlalchemy_engine = create_engine(f'sqlite:///{self.database}')
+
+        if os.path.exists(self.database):
+            logger.info(f"SQLite database '{self.database}' already exists.")
+        else:
+            logger.info(f"Initializing SQLite database '{self.database}'...")
 
     def insert_to_sqlite(self, data: pd.DataFrame, table_name: str) -> None:
         """
@@ -40,7 +40,9 @@ class LoadToSqlite:
             'SUBTLCD': 'Float',
             'Lg10CD': 'Float',
             'syllable_count': 'Integer',
-            'stress_pattern': 'Text'
+            'stress_pattern': 'Text',
+            'primary_stress_position': 'Integer',
+            'secondary_stress_position': 'Integer'
         }
 
         try:
