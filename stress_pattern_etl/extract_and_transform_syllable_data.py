@@ -1,9 +1,14 @@
 import pandas as pd
 from pandas import DataFrame
 from loguru import logger
+from nltk.corpus import cmudict
+import nltk
 
-from stress_pattern_etl import pron_dict
-from stress_pattern_etl.load_to_sqlite import LoadToSqlite
+from .load_to_sqlite import LoadToSqlite
+
+logger.info('Download the cmudict data.')
+nltk.download('cmudict')
+pron_dict = cmudict.dict()
 
 
 class TransformWordData:
