@@ -1,9 +1,9 @@
 import os
-import sqlalchemy
+import sqlite3
+
+import pandas as pd
 from loguru import logger
 from sqlalchemy import create_engine
-import pandas as pd
-import sqlite3
 
 
 class LoadToSqlite:

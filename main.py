@@ -1,8 +1,7 @@
 import pandas as pd
 from loguru import logger
 
-from stress_pattern_etl.extract_and_transform_syllable_data import TransformWordData
-from stress_pattern_etl.load_to_sqlite import LoadToSqlite
+import stress_pattern_etl
 
 logger.add(
     'extract_stress_pattern.log',
@@ -26,11 +25,11 @@ def run_etl_process(data_path: str) -> None:
     logger.info('Starting ETL process...')
     logger.info(f'Extract syllable data from {data_path}')
     dataset = pd.read_csv(data_path, delimiter='\t')
-    TransformWordData().apply_count_syllable(dataset)
+    stress_pattern_etl.TransformWordData().apply_count_syllable(dataset)
 
-    dataset = TransformWordData().transform_word_data()
+    dataset = stress_pattern_etl.TransformWordData().transform_word_data()
 
-    LoadToSqlite().insert_to_sqlite(dataset, 'StressPattern')
+    stress_pattern_etl.LoadToSqlite().insert_to_sqlite(dataset, 'StressPattern')
 
 
 if __name__ == '__main__':
