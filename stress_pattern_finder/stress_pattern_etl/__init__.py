@@ -12,6 +12,5 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from .extract_and_transform_syllable_data import TransformWordData
+from . extract_and_transform_syllable_data import TransformWordData
 from .load_to_sqlite import LoadToSqlite
-

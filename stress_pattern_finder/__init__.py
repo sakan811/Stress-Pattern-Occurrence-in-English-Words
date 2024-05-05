@@ -12,16 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-from loguru import logger
+from .eng_stress_pattern_finder import find_stress_pattern
 
-import stress_pattern_finder
-
-logger.add(
-    'extract_stress_pattern.log',
-    format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name} | {module} | {function} | {line} | {message}",
-    mode='w'
-)
-
-
-data_path = 'SUBTLEXus74286wordstextversion.tsv'
-stress_pattern_finder.find_stress_pattern(data_path)
+if __name__ == '__main__':
+    pass

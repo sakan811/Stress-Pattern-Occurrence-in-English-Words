@@ -12,16 +12,28 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import pandas as pd
 from loguru import logger
 
-import stress_pattern_finder
-
-logger.add(
-    'extract_stress_pattern.log',
-    format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name} | {module} | {function} | {line} | {message}",
-    mode='w'
-)
+from stress_pattern_etl import TransformWordData, LoadToSqlite
 
 
-data_path = 'SUBTLEXus74286wordstextversion.tsv'
-stress_pattern_finder.find_stress_pattern(data_path)
+def find_stress_pattern(data_path: str) -> None:
+    """
+    Find stress patterns in English words within the given dataset.
+
+    :param data_path: Dataset path
+    :return: None
+    """
+    logger.info('Starting ETL process...')
+    logger.info(f'Extract syllable data from {data_path}')
+    dataset = pd.read_csv(data_path, delimiter='\t')
+    TransformWordData().apply_count_syllable(dataset)
+
+    dataset = TransformWordData().transform_word_data()
+
+    LoadToSqlite().insert_to_sqlite(dataset, 'StressPattern')
+
+
+if __name__ == '__main__':
+    pass

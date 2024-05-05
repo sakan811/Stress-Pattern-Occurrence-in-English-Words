@@ -16,21 +16,25 @@ Only the first of the given type is considered.
 [Instagram](https://www.instagram.com/p/C4Ycgo2PHJA/?utm_source=ig_web_copy_link)  
 [Facebook](https://www.facebook.com/permalink.php?story_fbid=pfbid0nTKpe1Wx9BVbQJ8KZpQQfRCwp4zQn5TLDasiyiq9ec8u9fwBbJutnVa4FtXpsSfTl&id=61553626169836)    
 
+## To Run the ETL Process
+```main.py```
+- Execute the script
+
+## ```stress_pattern_finder``` Package
+
+```eng_stress_pattern_finder.py```
+- Find the stress pattern of the English words with the given dataset
 
 ## ```stress_pattern_etl``` Package
 
 ```extract_and_transform_syllable_data.py```
 - Extract data from **SubtlexUS** dataset
 - Transform data to find a syllable count and stress pattern of each English word
+  - Words that aren't in the dictionary will have the syllable count as -1
 
 ```load_to_sqlite.py```
 - Load data to SQLite database tables
 
-## To Run the ETL Process
-```main.py```
-
-- Execute the script
-
-# Sources
+## Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
 “SubtlexUS” dataset: http://www.lexique.org/?page_id=241  

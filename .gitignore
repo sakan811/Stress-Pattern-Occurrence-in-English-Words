@@ -166,3 +166,4 @@ cython_debug/
 /dataset/
 /graph/
 /English Stress Pattern.pdf
+/tests/eng_stress_pattern.db

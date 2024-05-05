@@ -18,7 +18,7 @@ from loguru import logger
 from nltk.corpus import cmudict
 import nltk
 
-from .load_to_sqlite import LoadToSqlite
+from load_to_sqlite import LoadToSqlite
 
 logger.info('Download the cmudict data.')
 nltk.download('cmudict')
@@ -30,29 +30,37 @@ class TransformWordData:
         pass
 
     @staticmethod
-    def _count_syllables(word: str) -> int | None:
+    def apply_count_syllable(data: DataFrame) -> None:
         """
         Count the number of syllables in a word.
-        :param word: English word.
-        :return: Integer if the word is string, else None
-        """
-        if isinstance(word, str):  # check if word is a string
-            try:
-                return [len(list(y for y in x if y[-1].isdigit())) for x in pron_dict[word.lower()]][0]
-            except KeyError as e:  # Handles the case where the word is not in the dictionary
-                logger.error(f'KeyError: {e}')
-                logger.error(f'{word} is not in CMU dictionary')
-        else:
-            return None  # return None if word is not a string
-
-    def apply_count_syllable(self, data: DataFrame) -> None:
-        """
-        Apply 'count_syllables' function to 'Word' column
-        :param data:
-        :return:
+        Take the word in each 'Word' column within the Dataframe and count the number of syllables.
+        :param data: Pandas DataFrame
+        :return: None
         """
         logger.info(f"Applying \'count_syllables\' to DataFrame...")
-        data['syllable_count']: DataFrame = data['Word'].apply(self._count_syllables)
+
+        def count_syllables(word: str) -> int | None:
+            """
+            Count the number of syllables in a word.
+            :param word: English word.
+            :return: Integer if the word is string, else None
+            """
+            if isinstance(word, str):  # check if word is a string
+                try:
+                    syllable_count = [len(list(y for y in x if y[-1].isdigit())) for x in pron_dict[word.lower()]][0]
+                except KeyError as e:  # Handles the case where the word is not in the dictionary
+                    logger.error(f'KeyError: {e}')
+                    logger.error(f'{word} is not in CMU dictionary')
+                    return None
+                else:
+                    logger.info(f'Counted syllable in {word} successfully: {syllable_count = }')
+                    return syllable_count
+            else:
+                return None  # return None if word is not a string
+
+        data['syllable_count']: DataFrame = data['Word'].apply(count_syllables)
+        # replace None with -1 in case that WOrd isn't in the Dictionary
+        data['syllable_count'].fillna(-1, inplace=True)
         LoadToSqlite().insert_to_sqlite(data, 'SyllableGroup')
 
     @staticmethod
@@ -62,6 +70,7 @@ class TransformWordData:
         :param word: English word.
         :return: Stress pattern of a word as String, else None.
         """
+        logger.info(f'Getting stress pattern from {word}...')
         try:
             phonemes: str = pron_dict[word.lower()][0]  # Assumes word is in dictionary and takes first pronunciation
             stress_pattern = [char for phoneme in phonemes for char in phoneme if char.isdigit()]
@@ -70,15 +79,6 @@ class TransformWordData:
             logger.error(f'KeyError: {e}')
             logger.error(f'{word} is not in CMU dictionary')
             return None
-
-    def _apply_stress_patterns(self, data: DataFrame) -> None:
-        """
-        Apply 'get_stress_pattern' function to 'Word' column
-        :param data: pandas DataFrame
-        :return: None
-        """
-        logger.info(f"Applying \'get_stress_pattern\' to DataFrame...")
-        data['stress_pattern'] = data['Word'].apply(self._get_stress_pattern)
 
     @staticmethod
     def _get_primary_stress_position(stress_pattern: str) -> int:
@@ -125,7 +125,7 @@ class TransformWordData:
         logger.info('Reset index after dropping rows')
         df.reset_index(drop=True, inplace=True)
 
-        self._apply_stress_patterns(df)
+        df['stress_pattern'] = df['Word'].apply(self._get_stress_pattern)
 
         logger.info('Get primary stress position of each word')
         df['primary_stress_position'] = df['stress_pattern'].apply(self._get_primary_stress_position)
