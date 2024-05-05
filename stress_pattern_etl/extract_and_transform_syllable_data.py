@@ -30,7 +30,7 @@ class TransformWordData:
         pass
 
     @staticmethod
-    def count_syllables(word: str) -> int | None:
+    def _count_syllables(word: str) -> int | None:
         """
         Count the number of syllables in a word.
         :param word: English word.
@@ -52,11 +52,11 @@ class TransformWordData:
         :return:
         """
         logger.info(f"Applying \'count_syllables\' to DataFrame...")
-        data['syllable_count']: DataFrame = data['Word'].apply(self.count_syllables)
+        data['syllable_count']: DataFrame = data['Word'].apply(self._count_syllables)
         LoadToSqlite().insert_to_sqlite(data, 'SyllableGroup')
 
     @staticmethod
-    def get_stress_pattern(word: str) -> str | None:
+    def _get_stress_pattern(word: str) -> str | None:
         """
         Get the stress pattern of a word.
         :param word: English word.
@@ -71,17 +71,17 @@ class TransformWordData:
             logger.error(f'{word} is not in CMU dictionary')
             return None
 
-    def apply_stress_patterns(self, data: DataFrame) -> None:
+    def _apply_stress_patterns(self, data: DataFrame) -> None:
         """
         Apply 'get_stress_pattern' function to 'Word' column
         :param data: pandas DataFrame
         :return: None
         """
         logger.info(f"Applying \'get_stress_pattern\' to DataFrame...")
-        data['stress_pattern'] = data['Word'].apply(self.get_stress_pattern)
+        data['stress_pattern'] = data['Word'].apply(self._get_stress_pattern)
 
     @staticmethod
-    def get_primary_stress_position(stress_pattern: str) -> int:
+    def _get_primary_stress_position(stress_pattern: str) -> int:
         """
         Get the primary stress position of a word.
         :param stress_pattern: Stress pattern of a word.
@@ -96,7 +96,7 @@ class TransformWordData:
             logger.error('ValueError')
 
     @staticmethod
-    def get_secondary_stress_position(stress_pattern: str) -> int:
+    def _get_secondary_stress_position(stress_pattern: str) -> int:
         """
         Get the secondary stress position of a word.
         :param stress_pattern: Stress pattern of a word.
@@ -125,12 +125,12 @@ class TransformWordData:
         logger.info('Reset index after dropping rows')
         df.reset_index(drop=True, inplace=True)
 
-        self.apply_stress_patterns(df)
+        self._apply_stress_patterns(df)
 
         logger.info('Get primary stress position of each word')
-        df['primary_stress_position'] = df['stress_pattern'].apply(self.get_primary_stress_position)
+        df['primary_stress_position'] = df['stress_pattern'].apply(self._get_primary_stress_position)
         logger.info('Get secondary stress position of each word')
-        df['secondary_stress_position'] = df['stress_pattern'].apply(self.get_secondary_stress_position)
+        df['secondary_stress_position'] = df['stress_pattern'].apply(self._get_secondary_stress_position)
 
         return df
 
