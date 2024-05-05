@@ -12,10 +12,9 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-import pandas as pd
 from loguru import logger
 
-from stress_pattern_etl import TransformWordData, LoadToSqlite
+from .stress_pattern_etl import TransformWordData, LoadToSqlite, extract_word_data
 
 
 def find_stress_pattern(data_path: str) -> None:
@@ -25,12 +24,11 @@ def find_stress_pattern(data_path: str) -> None:
     :param data_path: Dataset path
     :return: None
     """
-    logger.info('Starting ETL process...')
-    logger.info(f'Extract syllable data from {data_path}')
-    dataset = pd.read_csv(data_path, delimiter='\t')
-    TransformWordData().apply_count_syllable(dataset)
+    logger.info(f'Finding stress patterns in the dataset: {data_path}...')
 
-    dataset = TransformWordData().transform_word_data()
+    dataset = extract_word_data(data_path)
+
+    dataset = TransformWordData().transform_word_data(dataset)
 
     LoadToSqlite().insert_to_sqlite(dataset, 'StressPattern')
 

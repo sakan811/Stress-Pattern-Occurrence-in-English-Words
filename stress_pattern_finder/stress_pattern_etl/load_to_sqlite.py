@@ -64,7 +64,6 @@ class LoadToSqlite:
             with sqlite3.connect(self.database) as conn:
                 data.to_sql(table_name, conn, if_exists='replace', index=False, dtype=dtype_dict)
                 conn.commit()
-            logger.info('Inserted data successfully.')
         except OperationalError as e:
             logger.error(e)
             logger.error('OperationalError')
@@ -77,6 +76,8 @@ class LoadToSqlite:
         except IOError as e:
             logger.error(e)
             logger.error('IOError')
+        else:
+            logger.info('Inserted data successfully.')
 
 
 if __name__ == '__main__':

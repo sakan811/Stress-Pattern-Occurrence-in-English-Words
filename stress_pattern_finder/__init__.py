@@ -14,5 +14,4 @@
 
 from .eng_stress_pattern_finder import find_stress_pattern
 
-if __name__ == '__main__':
-    pass
+

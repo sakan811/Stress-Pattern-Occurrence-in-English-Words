@@ -30,7 +30,7 @@ Only the first of the given type is considered.
 ```extract_and_transform_syllable_data.py```
 - Extract data from **SubtlexUS** dataset
 - Transform data to find a syllable count and stress pattern of each English word
-  - Words that aren't in the dictionary will have the syllable count as -1
+  - Words that aren't in the dictionary will be filtered out
 
 ```load_to_sqlite.py```
 - Load data to SQLite database tables
