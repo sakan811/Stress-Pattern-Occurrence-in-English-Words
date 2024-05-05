@@ -87,9 +87,13 @@ class TransformWordData:
         :param stress_pattern: Stress pattern of a word.
         :return: Position of the primary stress as Integer.
         """
-        for i, char in enumerate(stress_pattern):
-            if char == '1':
-                return i + 1
+        try:
+            for i, char in enumerate(stress_pattern):
+                if char == '1':
+                    return i + 1
+        except ValueError as e:
+            logger.error(e)
+            logger.error('ValueError')
 
     @staticmethod
     def get_secondary_stress_position(stress_pattern: str) -> int:
@@ -98,9 +102,13 @@ class TransformWordData:
         :param stress_pattern: Stress pattern of a word.
         :return: Position of the secondary stress as Integer.
         """
-        for i, char in enumerate(stress_pattern):
-            if char == '2':
-                return i + 1
+        try:
+            for i, char in enumerate(stress_pattern):
+                if char == '2':
+                    return i + 1
+        except ValueError as e:
+            logger.error(e)
+            logger.error('ValueError')
 
     def transform_word_data(self) -> pd.DataFrame:
         """

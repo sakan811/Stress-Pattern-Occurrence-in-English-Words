@@ -14,6 +14,7 @@
 
 import os
 import sqlite3
+from sqlite3 import OperationalError
 
 import pandas as pd
 from loguru import logger
@@ -64,9 +65,18 @@ class LoadToSqlite:
                 data.to_sql(table_name, conn, if_exists='replace', index=False, dtype=dtype_dict)
                 conn.commit()
             logger.info('Inserted data successfully.')
-        except Exception as e:
+        except OperationalError as e:
             logger.error(e)
-            logger.error('Failed to insert data to database.')
+            logger.error('OperationalError')
+        except ValueError as e:
+            logger.error(e)
+            logger.error('ValueError')
+        except TypeError as e:
+            logger.error(e)
+            logger.error('TypeError')
+        except IOError as e:
+            logger.error(e)
+            logger.error('IOError')
 
 
 if __name__ == '__main__':
