@@ -8,9 +8,14 @@ The **cmudict** module from the **NLTK** library was used to extract the stress 
 The English words dataset was based on the **SubtlexUS** dataset.     
 
 ## Disclaimers
+According to what is mentioned on the CMU Pronouncing Dictionary website, 
+"Stress is difficult to get right and people disagree about it."
+
 According to the result from **cmudict** module, 
-the same type of **Stress Pattern** sometimes occurs many times in a word. 
-Only the first of the given type is considered.
+the same type of **Stress Pattern** sometimes occurs many times in a word.   
+Only the first occurrence of the given stress pattern type is considered 
+for their position in the given word.  
+For example, Stress Pattern '2020100', Primary Stress Position is 5, while Secondary Stress Pattern is 1.
 
 ## Visualizations
 [Instagram](https://www.instagram.com/p/C4Ycgo2PHJA/?utm_source=ig_web_copy_link)  

@@ -121,16 +121,18 @@ class TransformWordData:
             return None
 
     @staticmethod
-    def _get_secondary_stress_position(stress_pattern: str) -> int | None:
+    def _get_secondary_stress_position(stress_pattern: str) -> str | None:
         """
         Get the secondary stress position of a word.
         :param stress_pattern: Stress pattern of a word.
         :return: Position of the secondary stress as Integer, else None.
         """
         try:
+            secondary_stress_pos_list = []
             for i, char in enumerate(stress_pattern):
                 if char == '2':
-                    return i + 1
+                    secondary_stress_pos_list.append(i + 1)
+            return ','.join(str(secondary_stress_pos) for secondary_stress_pos in secondary_stress_pos_list)
         except ValueError as e:
             logger.error(e)
             logger.error(f'{stress_pattern} value is not acceptable')
