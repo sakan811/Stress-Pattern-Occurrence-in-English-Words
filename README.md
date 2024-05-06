@@ -12,8 +12,8 @@ According to what is mentioned on the CMU Pronouncing Dictionary website,
 "Stress is difficult to get right and people disagree about it."
 
 ## Visualizations
-[Instagram](https://www.instagram.com/p/C4Ycgo2PHJA/?utm_source=ig_web_copy_link)  
-[Facebook](https://www.facebook.com/permalink.php?story_fbid=pfbid0nTKpe1Wx9BVbQJ8KZpQQfRCwp4zQn5TLDasiyiq9ec8u9fwBbJutnVa4FtXpsSfTl&id=61553626169836)    
+[Instagram](https://www.instagram.com/p/C6oRlWmM5WL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==)  
+[Facebook](https://www.facebook.com/permalink.php?story_fbid=pfbid0LQsXGdyJCBBxEvjQeF7tD4tvZVkK9vVvWknG4exkd94jtmVV3Ma8wfYbBUTW5C4Cl&id=61553626169836)    
 
 ## To Run the ETL Process
 ```main.py```
