@@ -56,8 +56,8 @@ class LoadToSqlite:
             'Lg10CD': 'Float',
             'syllable_count': 'Integer',
             'stress_pattern': 'Text',
-            'primary_stress_position': 'Integer',
-            'secondary_stress_position': 'Integer'
+            'primary_stress_position': 'Text',
+            'secondary_stress_position': 'Text'
         }
 
         try:
