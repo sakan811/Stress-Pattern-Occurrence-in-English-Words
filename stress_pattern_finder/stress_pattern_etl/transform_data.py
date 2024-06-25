@@ -30,50 +30,48 @@ class TransformWordData:
         pass
 
     @staticmethod
-    def _apply_count_syllable(data: DataFrame) -> None:
+    def _count_syllables(word: str) -> int | None:
+        """
+        Count the number of syllables in a word.
+        :param word: English word.
+        :return: Integer if the word is string, else None
+        """
+        logger.debug(f"Counting syllables in '{word}'...")
+        try:
+            # Prevent the word 'None' to be considered as NoneType
+            if word == 'None':
+                word = 'none'
+
+            syllable_count = [len(list(y for y in x if y[-1].isdigit())) for x in pron_dict[word.lower()]][0]
+        except KeyError as e:  # Handles the case where the word is not in the dictionary
+            logger.error(f'KeyError: {e}')
+            logger.error(f'{word} is not in CMU dictionary')
+            return None
+        except TypeError as e:
+            logger.error(f'TypeError: {e}')
+            logger.error(f'{word} is not countable')
+            return None
+        except AttributeError as e:
+            logger.error(e)
+            logger.error(f'{word} is not String')
+            return None
+        else:
+            logger.debug(f'Counted syllable in {word} successfully: {syllable_count = }')
+            return syllable_count
+
+    def _apply_count_syllable(self, data: DataFrame) -> DataFrame:
         """
         Count the number of syllables in a word.
         Take the word in each 'Word' column within the Dataframe and count the number of syllables.
-        :param data: Pandas DataFrame
-        :return: None
+        :param data: Pandas DataFrame.
+        :return: Pandas DataFrame.
         """
         logger.info(f"Counting syllable of each word in the DataFrame...")
 
-        def count_syllables(word: str) -> int | None:
-            """
-            Count the number of syllables in a word.
-            :param word: English word.
-            :return: Integer if the word is string, else None
-            """
-            logger.info(f"Counting syllables in '{word}'...")
-            try:
-                # Prevent the word 'None' to be considered as NoneType
-                if word == 'None':
-                    word = 'none'
-
-                syllable_count = [len(list(y for y in x if y[-1].isdigit())) for x in pron_dict[word.lower()]][0]
-            except KeyError as e:  # Handles the case where the word is not in the dictionary
-                logger.error(f'KeyError: {e}')
-                logger.error(f'{word} is not in CMU dictionary')
-                return None
-            except TypeError as e:
-                logger.error(f'TypeError: {e}')
-                logger.error(f'{word} is not countable')
-                return None
-            except AttributeError as e:
-                logger.error(e)
-                logger.error(f'{word} is not String')
-                return None
-            else:
-                logger.info(f'Counted syllable in {word} successfully: {syllable_count = }')
-                return syllable_count
-
-        data['syllable_count']: DataFrame = data['Word'].apply(count_syllables)
+        data['syllable_count']: DataFrame = data['Word'].apply(self._count_syllables)
 
         logger.info('Drop rows where \'syllable_count\' is null')
-        data = data.dropna(subset=['syllable_count'])
-
-        LoadToSqlite().insert_to_sqlite(data, 'SyllableGroup')
+        return data.dropna(subset=['syllable_count'])
 
     @staticmethod
     def _get_stress_pattern(word: str) -> str | None:
@@ -82,7 +80,7 @@ class TransformWordData:
         :param word: English word.
         :return: Stress pattern of a word as String, else None.
         """
-        logger.info(f'Getting stress pattern from {word}...')
+        logger.debug(f'Getting stress pattern from {word}...')
         try:
             # Prevent the word 'None' to be considered as NoneType
             if word == 'None':
@@ -150,7 +148,9 @@ class TransformWordData:
         :param dataset: Panda DataFrame.
         :return: Panda DataFrame.
         """
-        self._apply_count_syllable(dataset)
+        data = self._apply_count_syllable(dataset)
+
+        LoadToSqlite().insert_to_sqlite(data, 'SyllableGroup')
 
         engine = LoadToSqlite().sqlalchemy_engine
         query = "select * from main.SyllableGroup"

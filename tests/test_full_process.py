@@ -1,11 +1,15 @@
 import pytest
 
-import stress_pattern_finder
+from stress_pattern_finder.eng_stress_pattern_finder import find_stress_pattern
 
 
 def test_full_process():
     data_path = 'SUBTLEXus74286wordstextversion.tsv'
-    stress_pattern_finder.find_stress_pattern(data_path)
+    df = find_stress_pattern(data_path)
+    assert not df.empty
+
+    # Check columns
+    assert df.shape[1] == 13
 
 
 if __name__ == '__main__':

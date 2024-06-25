@@ -13,24 +13,24 @@
 #    limitations under the License.
 
 from loguru import logger
+from pandas import DataFrame
 
-from .stress_pattern_etl import TransformWordData, LoadToSqlite, extract_word_data
+from stress_pattern_finder.stress_pattern_etl.extract_data import extract_word_data
+from stress_pattern_finder.stress_pattern_etl.transform_data import TransformWordData
 
 
-def find_stress_pattern(data_path: str) -> None:
+def find_stress_pattern(data_path: str) -> DataFrame:
     """
     Find stress patterns in English words within the given dataset.
 
     :param data_path: Dataset path
-    :return: None
+    :return: Pandas Dataframe.
     """
     logger.info(f'Finding stress patterns in the dataset: {data_path}...')
 
     dataset = extract_word_data(data_path)
 
-    dataset = TransformWordData().transform_word_data(dataset)
-
-    LoadToSqlite().insert_to_sqlite(dataset, 'StressPattern')
+    return TransformWordData().transform_word_data(dataset)
 
 
 if __name__ == '__main__':

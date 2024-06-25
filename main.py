@@ -11,17 +11,23 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+import sys
 
 from loguru import logger
 
-import stress_pattern_finder
+from stress_pattern_finder.eng_stress_pattern_finder import find_stress_pattern
+from stress_pattern_finder.stress_pattern_etl.load_to_sqlite import LoadToSqlite
+from stress_pattern_finder.stress_pattern_etl.utils import save_to_csv
 
+logger.configure(handlers=[{'sink': sys.stderr, 'level': 'INFO'}])
 logger.add(
     'extract_stress_pattern.log',
     format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name} | {module} | {function} | {line} | {message}",
-    mode='w'
+    mode='w', level='INFO'
 )
 
-
-data_path = 'SUBTLEXus74286wordstextversion.tsv'
-stress_pattern_finder.find_stress_pattern(data_path)
+if __name__ == '__main__':
+    data_path = 'SUBTLEXus74286wordstextversion.tsv'
+    dataframe = find_stress_pattern(data_path)
+    save_to_csv(dataframe, directory='data')
+    LoadToSqlite().insert_to_sqlite(dataframe, 'StressPattern')
