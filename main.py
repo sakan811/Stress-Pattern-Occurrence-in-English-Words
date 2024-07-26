@@ -16,8 +16,7 @@ import sys
 from loguru import logger
 
 from stress_pattern_finder.eng_stress_pattern_finder import find_stress_pattern
-from stress_pattern_finder.stress_pattern_etl.load_to_sqlite import LoadToSqlite
-from stress_pattern_finder.stress_pattern_etl.utils import save_to_csv
+from stress_pattern_finder.stress_pattern_etl.load_to_sqlite import insert_to_sqlite
 
 logger.configure(handlers=[{'sink': sys.stderr, 'level': 'INFO'}])
 logger.add(
@@ -29,5 +28,5 @@ logger.add(
 if __name__ == '__main__':
     data_path = 'SUBTLEXus74286wordstextversion.tsv'
     dataframe = find_stress_pattern(data_path)
-    save_to_csv(dataframe, directory='data')
-    LoadToSqlite().insert_to_sqlite(dataframe, 'StressPattern')
+    db = 'eng_stress_pattern.db'
+    insert_to_sqlite(db, dataframe, 'StressPattern')

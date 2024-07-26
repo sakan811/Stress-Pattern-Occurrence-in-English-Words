@@ -16,7 +16,7 @@ from loguru import logger
 from pandas import DataFrame
 
 from stress_pattern_finder.stress_pattern_etl.extract_data import extract_word_data
-from stress_pattern_finder.stress_pattern_etl.transform_data import TransformWordData
+from stress_pattern_finder.stress_pattern_etl.transform_data import transform_word_data
 
 
 def find_stress_pattern(data_path: str) -> DataFrame:
@@ -30,7 +30,7 @@ def find_stress_pattern(data_path: str) -> DataFrame:
 
     dataset = extract_word_data(data_path)
 
-    return TransformWordData().transform_word_data(dataset)
+    return transform_word_data(dataset)
 
 
 if __name__ == '__main__':

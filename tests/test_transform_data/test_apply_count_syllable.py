@@ -1,19 +1,16 @@
 import pandas as pd
 
-from stress_pattern_finder.stress_pattern_etl.transform_data import TransformWordData
+from stress_pattern_finder.stress_pattern_etl.transform_data import apply_count_syllable
 
 
 def test_apply_count_syllable():
-    # Create an instance of SyllableCounter
-    counter = TransformWordData()
-
     # Sample data
     data = pd.DataFrame({
         'Word': ['hello', 'world', 'python', 'is', 'great', None, '', '123', 'syllable']
     })
 
     # Apply the syllable counting method
-    loader = counter._apply_count_syllable(data)
+    loader = apply_count_syllable(data)
 
     # Check if the syllable counts are correctly calculated
     assert loader['syllable_count'].tolist() == [2.0, 1.0, 2.0, 1.0, 1.0, 3.0]
@@ -23,30 +20,24 @@ def test_apply_count_syllable():
 
 
 def test_empty_dataframe():
-    # Create an instance of SyllableCounter
-    counter = TransformWordData()
-
     # Empty DataFrame
     data = pd.DataFrame(columns=['Word'])
 
     # Apply the syllable counting method
-    result = counter._apply_count_syllable(data)
+    result = apply_count_syllable(data)
 
     # Check if the result is still an empty DataFrame
     assert result.empty
 
 
 def test_dataframe_with_null_values():
-    # Create an instance of SyllableCounter
-    counter = TransformWordData()
-
     # DataFrame with null values
     data = pd.DataFrame({
         'Word': ['hello', None, 'world', None, 'python']
     })
 
     # Apply the syllable counting method
-    result = counter._apply_count_syllable(data)
+    result = apply_count_syllable(data)
 
     # Expected syllable counts
     expected_syllable_counts = [2.0, 1.0, 2.0]
@@ -59,16 +50,13 @@ def test_dataframe_with_null_values():
 
 
 def test_dataframe_with_empty_strings():
-    # Create an instance of SyllableCounter
-    counter = TransformWordData()
-
     # DataFrame with empty strings
     data = pd.DataFrame({
         'Word': ['hello', '', 'world', '', 'python']
     })
 
     # Apply the syllable counting method
-    result = counter._apply_count_syllable(data)
+    result = apply_count_syllable(data)
 
     # Expected syllable counts
     expected_syllable_counts = [2.0, 1.0, 2.0]
@@ -81,16 +69,13 @@ def test_dataframe_with_empty_strings():
 
 
 def test_dataframe_with_non_string_values():
-    # Create an instance of SyllableCounter
-    counter = TransformWordData()
-
     # DataFrame with non-string values
     data = pd.DataFrame({
         'Word': ['hello', 123, 'world', 456.78, 'python']
     })
 
     # Apply the syllable counting method
-    result = counter._apply_count_syllable(data)
+    result = apply_count_syllable(data)
 
     # Expected syllable counts
     expected_syllable_counts = [2.0, 1.0, 2.0]
@@ -103,16 +88,13 @@ def test_dataframe_with_non_string_values():
 
 
 def test_all_rows_dropped():
-    # Create an instance of SyllableCounter
-    counter = TransformWordData()
-
     # DataFrame with all rows having null or non-string values
     data = pd.DataFrame({
         'Word': [None, '', 123, None, 456.78]
     })
 
     # Apply the syllable counting method
-    result = counter._apply_count_syllable(data)
+    result = apply_count_syllable(data)
 
     # Check if all rows are dropped
     assert result.empty
