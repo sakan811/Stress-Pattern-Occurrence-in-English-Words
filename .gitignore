@@ -167,3 +167,5 @@ cython_debug/
 /graph/
 /English Stress Pattern.pdf
 /tests/eng_stress_pattern.db
+**/*.log
+**/*.db

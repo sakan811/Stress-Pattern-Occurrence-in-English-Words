@@ -24,10 +24,6 @@ def test_full_process():
         rows = cursor.fetchall()
         assert len(rows) > 0
 
-        cursor.execute('SELECT * FROM SyllableGroup')
-        rows = cursor.fetchall()
-        assert len(rows) > 0
-
 
 if __name__ == '__main__':
     pytest.main([__file__])

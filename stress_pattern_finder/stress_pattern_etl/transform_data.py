@@ -148,22 +148,14 @@ def transform_word_data(dataset: DataFrame) -> pd.DataFrame:
     """
     data = apply_count_syllable(dataset)
 
-    db = 'eng_stress_pattern.db'
-    insert_to_sqlite(db, data, 'SyllableGroup')
+    df = data.copy()
 
-    with sqlite3.connect(db) as conn:
-        query = "select * from main.SyllableGroup"
-        df = pd.read_sql_query(query, conn)
-
-    logger.info('Reset index after dropping rows')
-    df.reset_index(drop=True, inplace=True)
-
-    df['stress_pattern'] = df['Word'].apply(get_stress_pattern)
+    df.loc[:, 'stress_pattern'] = df['Word'].apply(get_stress_pattern)
 
     logger.info('Get primary stress position of each word')
-    df['primary_stress_position'] = df['stress_pattern'].apply(get_primary_stress_position)
+    df.loc[:, 'primary_stress_position'] = df['stress_pattern'].apply(get_primary_stress_position)
     logger.info('Get secondary stress position of each word')
-    df['secondary_stress_position'] = df['stress_pattern'].apply(get_secondary_stress_position)
+    df.loc[:, 'secondary_stress_position'] = df['stress_pattern'].apply(get_secondary_stress_position)
 
     return df
 

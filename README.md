@@ -55,10 +55,8 @@ Visualizations Latest Update: 6 May 2024
 ## Database Details
 Tables:
 - StressPattern
-  - **Main table** 
   - Store **syllable count**, **stress pattern**, and **primary** and **secondary stress position** of each word
-- SyllableGroup
-  - Store **syllable count** of each word
+
 
 ## Sources
 The CMU Pronouncing Dictionary: http://www.speech.cs.cmu.edu/cgi-bin/cmudict   
